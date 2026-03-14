@@ -32,31 +32,34 @@ export function DateUnlock({ onUnlock }: DateUnlockProps) {
 
   const [isHolding, setIsHolding] = useState(false);
   const [holdProgress, setHoldProgress] = useState(0);
-  const holdTimerRef = useRef<number | null>(null);
   const progressIntervalRef = useRef<number | null>(null);
 
   const startHolding = () => {
     // Check if the date is correct first
     if (dd === '15' && mm === '03' && yyyy === '2003') {
       setIsHolding(true);
+
+      const startTime = Date.now();
+      const holdDuration = 2500; // 2.5 seconds to unlock
+
       // Start increasing progress
       progressIntervalRef.current = window.setInterval(() => {
-        setHoldProgress(prev => {
-          if (prev >= 100) return 100;
-          return prev + 2; // Increase progress 50 times (every 60ms) to reach 100% in 3 seconds
-        });
-      }, 60);
+        const elapsed = Date.now() - startTime;
+        const newProgress = Math.min((elapsed / holdDuration) * 100, 100);
 
-      // Trigger unlock after 3 seconds
-      holdTimerRef.current = window.setTimeout(() => {
-        if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-        setHoldProgress(100);
-        setIsHolding(false);
-        setIsUnlocking(true);
-        setTimeout(() => {
-          onUnlock();
-        }, 3000);
-      }, 3000);
+        setHoldProgress(newProgress);
+
+        if (newProgress >= 100) {
+          if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+          setHoldProgress(100);
+          setIsHolding(false);
+          setIsUnlocking(true);
+          setTimeout(() => {
+            onUnlock();
+          }, 3000);
+        }
+      }, 50);
+
     } else {
       // Date is wrong, show error
       setError(true);
@@ -65,7 +68,6 @@ export function DateUnlock({ onUnlock }: DateUnlockProps) {
   };
 
   const stopHolding = () => {
-    if (holdTimerRef.current) clearTimeout(holdTimerRef.current);
     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
     if (!isUnlocking) {
       setIsHolding(false);
@@ -73,7 +75,6 @@ export function DateUnlock({ onUnlock }: DateUnlockProps) {
     }
   };
 
-  const isFilled = dd.length === 2 && mm.length === 2;
   return (
     <motion.div
       className="unlock-gradient fixed inset-0 flex items-center justify-center z-50 overflow-hidden"
@@ -197,7 +198,7 @@ export function DateUnlock({ onUnlock }: DateUnlockProps) {
         </div>
 
         <AnimatePresence>
-          {isFilled && !isUnlocking && (
+          {!isUnlocking && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

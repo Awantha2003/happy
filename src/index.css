@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  /* Existing Romantic Palette */
+  --rose-primary: #E8A0BF;
+  --rose-light: #F2B5D4;
+  --pink-soft: #FFC2D1;
+  --lavender: #C8A2C8;
+  --lavender-light: #D4B2D8;
+  --peach: #FFDAB9;
+  --peach-light: #FFE5CC;
+  --gold-warm: #D4A574;
+  --gold-muted: #C9A96E;
+  --blush-cream: #FFF5EE;
+  --blush-pink: #FFF0F5;
+  --text-warm: #8B6F6F;
+  --text-rose: #A0616A;
+  --text-gold: #B8956A;
+  /* New Deep Romantic Palette for Unlock Screen */
+  --plum-dark: #2D1B2E;
+  --rose-dark: #4A2040;
+  --midnight: #1F1225;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Cormorant Garamond', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+}
+/* Backgrounds & Overlays */
+.intro-gradient {
+  background: linear-gradient(
+    135deg,
+    #FFF0F5 0%,
+    #F2B5D4 20%,
+    #D4B2D8 40%,
+    #FFE5CC 60%,
+    #FFC2D1 80%,
+    #FFF0F5 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+.unlock-gradient {
+  background: radial-gradient(circle at center, var(--rose-dark) 0%, var(--plum-dark) 50%, var(--midnight) 100%);
+}
+.wood-texture {
+  background-color: #3d2314;
+  background-image: 
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0,0,0,0.05) 3px,
+      rgba(0,0,0,0.05) 4px
+    ),
+    linear-gradient(
+      85deg,
+      rgba(0,0,0,0.4) 0%,
+      transparent 20%,
+      rgba(255,255,255,0.05) 50%,
+      transparent 80%,
+      rgba(0,0,0,0.4) 100%
+    ),
+    linear-gradient(
+      to right,
+      #2b180d 0%,
+      #4a2e1b 20%,
+      #3d2314 50%,
+      #523422 80%,
+      #2b180d 100%
+    );
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.6) 120%);
+  z-index: 10;
+}
+/* Light Rays */
+.light-ray {
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255, 215, 0, 0.03) 45%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 215, 0, 0.03) 55%,
+    transparent 60%
+  );
+  animation: lightRayShift 15s infinite linear;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+.light-ray:nth-child(2) {
+  animation-direction: reverse;
+  animation-duration: 20s;
+  background: linear-gradient(
+    -45deg,
+    transparent 40%,
+    rgba(255, 215, 0, 0.02) 45%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 215, 0, 0.02) 55%,
+    transparent 60%
+  );
+}
+/* Book & Paper Textures */
+.leather-texture {
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(180, 100, 120, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 70%, rgba(140, 80, 100, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #9B4D6A 0%, #8B3A5A 25%, #A0506E 50%, #8B3A5A 75%, #9B4D6A 100%);
+  position: relative;
+}
+.leather-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: inherit;
+}
+.page-texture {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(255, 240, 230, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255, 230, 220, 0.3) 0%, transparent 50%),
+    linear-gradient(180deg, #FFF8F2 0%, #FFF5EE 50%, #FFEEE5 100%);
+}
+.paper-ruled {
+  background-image: repeating-linear-gradient(transparent, transparent 31px, rgba(200, 162, 200, 0.15) 31px, rgba(200, 162, 200, 0.15) 32px);
+  background-position: 0 40px;
+}
+.coffee-stain {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 50%, rgba(139, 111, 111, 0.05) 65%, rgba(139, 111, 111, 0.1) 70%, transparent 72%);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.book-edge {
+  background: repeating-linear-gradient(
+    to bottom,
+    #FFF5EE,
+    #FFF5EE 1px,
+    #E8D8C8 1px,
+    #E8D8C8 2px
+  );
+}
+.polaroid {
+  background: #fff;
+  padding: 12px 12px 45px 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 2px;
+  position: relative;
+}
+/* Animations */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 0%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 100%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes lightRayShift {
+  0% { transform: rotate(0deg) translateY(-5%); }
+  50% { transform: rotate(5deg) translateY(5%); }
+  100% { transform: rotate(0deg) translateY(-5%); }
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(-100vh) translateX(var(--drift-x, 20px)) scale(0.3); opacity: 0; }
+}
+@keyframes floatGentle {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  15% { opacity: 0.6; }
+  85% { opacity: 0.4; }
+  100% { transform: translateY(var(--float-y, -60px)) translateX(var(--drift-x, 30px)); opacity: 0; }
+}
+@keyframes bokehFloat {
+  0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+  20% { opacity: var(--target-opacity, 0.15); }
+  50% { transform: translate(var(--drift-x, 30px), var(--float-y, -50px)) scale(1.2); }
+  80% { opacity: var(--target-opacity, 0.15); }
+  100% { transform: translate(calc(var(--drift-x, 30px) * 2), calc(var(--float-y, -50px) * 2)) scale(0.8); opacity: 0; }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 165, 116, 0.3), 0 0 40px rgba(232, 160, 191, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(212, 165, 116, 0.5), 0 0 60px rgba(232, 160, 191, 0.35); }
+}
+@keyframes floatHeart {
+  0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.8; }
+  50% { transform: translateY(-40px) scale(1.1) rotate(10deg); opacity: 0.6; }
+  100% { transform: translateY(-100px) scale(0.6) rotate(-10deg); opacity: 0; }
+}
+@keyframes typewriterCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: typewriterCursor 0.8s infinite;
+}
+.btn-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+/* 3D Perspective */
+.book-perspective {
+  perspective: 2000px;
+  perspective-origin: center center;
+}
+.page-flip {
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  backface-visibility: hidden;
+}
+.page-back {
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #FFF0F5; }
+::-webkit-scrollbar-thumb { background: #E8A0BF; border-radius: 3px; }

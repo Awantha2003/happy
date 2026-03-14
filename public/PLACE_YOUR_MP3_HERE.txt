@@ -1,0 +1,8 @@
+Pixabay and other external websites block other websites from playing their music directly without permission (this is what caused your "403 Forbidden" error!).
+
+To get your music working:
+1. Find any MP3 file you want to play for her (e.g., her favorite song).
+2. Rename that file to exactly: `birthday.mp3`
+3. Drag and drop that `birthday.mp3` file directly into this `public` folder alongside this text file!
+
+When you reload your website, the music player will automatically find the file and start playing it.
